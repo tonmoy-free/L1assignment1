@@ -11,6 +11,8 @@ function formatValue(value: string | number | boolean): string | number | boolea
     if (typeof value === "boolean") {
         return !value;
     }
+
+    return value;
 };
 
 // console.log(formatValue('hello'));
@@ -21,12 +23,11 @@ function formatValue(value: string | number | boolean): string | number | boolea
 function getLength(value: string | any[]): number {
     if (typeof value === "string") {
         return value.length;
-    }
-
-    if (Array.isArray(value)) {
+    } else {
         return value.length;
     }
-};
+}
+
 
 // console.log(getLength('typescript'));
 // console.log(getLength([10, 20, 30, 40]));
@@ -42,7 +43,7 @@ class Person {
     }
 
     getDetails(): string {
-        return `Name: ${this.name}, Age: ${this.age}`;
+        return `'Name: ${this.name}, Age: ${this.age}'`;
     }
 };
 
@@ -120,11 +121,44 @@ function getUniqueValues(
     arr2: (number | string)[]
 ): (number | string)[] {
 
-    const combined = [...arr1, ...arr2];
-    const uniqueSet = new Set(combined);
+    const result: (number | string)[] = [];
 
-    return [...uniqueSet];
-};
+
+    for (let i = 0; i < arr1.length; i++) {
+        let exists = false;
+
+
+        for (let j = 0; j < result.length; j++) {
+            if (result[j] === arr1[i]) {
+                exists = true;
+                break;
+            }
+        }
+
+        if (!exists) {
+            result[result.length] = arr1[i];
+        }
+    }
+
+
+    for (let i = 0; i < arr2.length; i++) {
+        let exists = false;
+
+
+        for (let j = 0; j < result.length; j++) {
+            if (result[j] === arr2[i]) {
+                exists = true;
+                break;
+            }
+        }
+
+        if (!exists) {
+            result[result.length] = arr2[i];
+        }
+    }
+
+    return result;
+}
 
 // const array1 = [1, 2, 3, 4, 5];
 // const array2 = [3, 4, 5, 6, 7];
